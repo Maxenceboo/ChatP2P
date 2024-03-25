@@ -12,6 +12,6 @@ public class PrivateSendMessageButtonActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO
+        // TODO faire le traitement pour envoyer un message privé
     }
 }

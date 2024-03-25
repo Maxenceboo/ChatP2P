@@ -3,7 +3,6 @@ package chatSystem.view.Adapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 
 import chatSystem.model.Personne;
 import chatSystem.view.GuiChatSystem;
@@ -19,14 +18,15 @@ public class UserListMouseAdapter extends MouseAdapter {
         this.guiChatSystem = guiChatSystem;
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {
             Personne selectedUser = guiChatSystem.getUsers().get(userList.getSelectedIndex());
             // check if private list with sender exists
             if (!this.guiChatSystem.getPrivateChats().contains(selectedUser)) {
-                var privateChat = new GuiPrivateChat(selectedUser);
-                this.guiChatSystem.addPrivateChats(privateChat);
+                // new GuiPrivateChat(selectedUser)
+                this.guiChatSystem.addPrivateChats(new GuiPrivateChat(selectedUser));
             }
         }
     }

@@ -1,13 +1,15 @@
 package chatSystem.view;
 
-import javax.swing.JFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle.Control;
+
+import chatSystem.controller.Controller;
 import chatSystem.model.Personne;
 import chatSystem.view.Adapter.UserListMouseAdapter;
+import chatSystem.view.Listener.SendmessageButtonActionListerner;
 
 public class GuiChatSystem extends JFrame {
 
@@ -17,9 +19,11 @@ public class GuiChatSystem extends JFrame {
     private JButton sendButton;
     private JTextField userInputField;
     private List<GuiPrivateChat> privateChats = new ArrayList<>();
+    private final Controller controller;
 
     public GuiChatSystem(List<Personne> users) {
         this.users = users;
+        this.controller = new Controller(this);
         createGUI();
     }
 
@@ -53,7 +57,7 @@ public class GuiChatSystem extends JFrame {
 
         // Send button
         sendButton = new JButton("Send");
-        sendButton.addActionListener(e -> sendMessage());
+        sendButton.addActionListener(new SendmessageButtonActionListerner(this));
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(userInputField, BorderLayout.CENTER);
         bottomPanel.add(sendButton, BorderLayout.EAST);
@@ -61,18 +65,6 @@ public class GuiChatSystem extends JFrame {
 
         // Display the JFrame
         setVisible(true);
-    }
-
-    private void sendMessage() {
-        String message = userInputField.getText();
-        if (!message.isEmpty()) {
-            chatArea.append("Me : " + message + "\n");
-            userInputField.setText("");
-        }
-    }
-
-    public void receiveMessage(String sender, String message) {
-        chatArea.append(sender + ": " + message + "\n");
     }
 
     public void addUser(Personne user) {
@@ -120,6 +112,10 @@ public class GuiChatSystem extends JFrame {
 
     public void removePrivateChats(GuiPrivateChat privateChat){
         this.privateChats.remove(privateChat);
+    }
+
+    public Controller getController() {
+        return controller;
     }
 
 }

@@ -2,14 +2,13 @@ package chatSystem.controller;
 
 import chatSystem.model.Message;
 import chatSystem.model.MessagePrivate;
-import chatSystem.model.Personne;
 import chatSystem.view.GuiChatSystem;
 import chatSystem.view.GuiPrivateChat;
 
-public class controller {
+public class Controller {
     private GuiChatSystem guiChatSystem;
 
-    public controller(GuiChatSystem guiChatSystem) {
+    public Controller(GuiChatSystem guiChatSystem) {
         this.guiChatSystem = guiChatSystem;
     }
 
@@ -18,6 +17,7 @@ public class controller {
         this.guiChatSystem.getChatArea().append(message.toString() + "\n");
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     public void messageReceived(MessagePrivate message) {
         if (!this.guiChatSystem.getUsers().contains(message.getSender())) return;
 
@@ -25,9 +25,9 @@ public class controller {
         if (!this.guiChatSystem.getPrivateChats().contains(message.getSender())) {
             this.guiChatSystem.addPrivateChats(new GuiPrivateChat(message));
         }
-        var privateChat = this.guiChatSystem.getPrivateChats().get(this.guiChatSystem.getPrivateChats().indexOf(message.getSender()));
+        GuiPrivateChat privateChat = this.guiChatSystem.getPrivateChats().get(this.guiChatSystem.getPrivateChats().indexOf(message.getSender()));
 
-        this.guiChatSystem.getChatArea().append(message.toString() + "\n");
+        privateChat.getChatArea().append(message.toString() + "\n");
     }
 
     public void sendMessage(String message) {

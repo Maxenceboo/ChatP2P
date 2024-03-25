@@ -32,10 +32,10 @@ public class GuiPrivateChat extends JFrame {
         // Setting up the JFrame
         setTitle("ChatPrivate " + userName);
         setSize(500, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Chat area
-        chatArea = new JTextArea("chatArea");
+        chatArea = new JTextArea("Chat with " + userName + ":\n");
         chatArea.setEditable(false);
         JScrollPane chatScrollPane = new JScrollPane(chatArea);
         add(chatScrollPane, BorderLayout.CENTER);
@@ -45,7 +45,7 @@ public class GuiPrivateChat extends JFrame {
         messageField = new JTextField();
         bottomPanel.add(messageField, BorderLayout.CENTER);
 
-        sendButton = new JButton("btnsend");
+        sendButton = new JButton("Send");
         sendButton.addActionListener(new PrivateSendMessageButtonActionListener());
         bottomPanel.add(sendButton, BorderLayout.EAST);
 
@@ -54,5 +54,59 @@ public class GuiPrivateChat extends JFrame {
         // Display the JFrame
         setVisible(true);
     }
+
+    public JTextArea getChatArea() {
+        return chatArea;
+    }
+
+    public JTextField getMessageField() {
+        return messageField;
+    }
+
+    public JButton getSendButton() {
+        return sendButton;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public MessagePrivate getMessage() {
+        return message;
+    }
+
+    public void setMessage(MessagePrivate message) {
+        this.message = message;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setChatArea(JTextArea chatArea) {
+        this.chatArea = chatArea;
+    }
+
+    public void setMessageField(JTextField messageField) {
+        this.messageField = messageField;
+    }
+
+    public void setSendButton(JButton sendButton) {
+        this.sendButton = sendButton;
+    }
+
+    public void sendMessage(String message) {
+        this.chatArea.append("Me : " + message + "\n");
+    }
+
+    public void receiveMessage(String message) {
+        this.chatArea.append(this.userName + " : " + message + "\n");
+    }
+
+    public void close() {
+        this.dispose();
+    }
+
+
 
 }
