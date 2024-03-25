@@ -3,7 +3,8 @@ package chatSystem.view;
 import javax.swing.JFrame;
 
 import chatSystem.model.MessagePrivate;
-import chatSystem.view.ActionListener.PrivateSendMessageButtonActionListener;
+import chatSystem.model.Personne;
+import chatSystem.view.Listener.PrivateSendMessageButtonActionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,11 @@ public class GuiPrivateChat extends JFrame {
     public GuiPrivateChat(MessagePrivate message) {
         this.message = message;
         this.userName = message.getSender().getPseudo();
+        createGUI();
+    }
+
+    public GuiPrivateChat(Personne personne) {
+        this.userName = personne.getPseudo();
         createGUI();
     }
 

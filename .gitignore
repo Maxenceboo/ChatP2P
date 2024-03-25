@@ -2,3 +2,5 @@
 /.idea
 /.gradle
 ChatP2P.iml
+/out/
+/bin/

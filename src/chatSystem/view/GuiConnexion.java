@@ -2,7 +2,7 @@ package chatSystem.view;
 
 import javax.swing.*;
 
-import chatSystem.view.ActionListener.ConnexionButtonActionListener;
+import chatSystem.view.Listener.ConnexionButtonActionListener;
 
 import java.awt.*;
 
@@ -33,6 +33,7 @@ public class GuiConnexion extends JFrame {
         this.setSize(300, 150);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
 
         // add action listener to the button
         this.button.addActionListener(new ConnexionButtonActionListener(this));

@@ -23,8 +23,7 @@ public class controller {
 
         // check if private list with sender exists 
         if (!this.guiChatSystem.getPrivateChats().contains(message.getSender())) {
-            var privateChat = new GuiPrivateChat(message);
-            this.guiChatSystem.addPrivateChats(privateChat);
+            this.guiChatSystem.addPrivateChats(new GuiPrivateChat(message));
         }
         var privateChat = this.guiChatSystem.getPrivateChats().get(this.guiChatSystem.getPrivateChats().indexOf(message.getSender()));
 

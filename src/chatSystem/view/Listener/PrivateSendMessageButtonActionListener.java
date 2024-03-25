@@ -1,4 +1,4 @@
-package chatSystem.view.ActionListener;
+package chatSystem.view.Listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,6 @@ public class PrivateSendMessageButtonActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        // TODO
     }
 }

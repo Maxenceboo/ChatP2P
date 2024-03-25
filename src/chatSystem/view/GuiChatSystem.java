@@ -7,8 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import chatSystem.model.Personne;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import chatSystem.view.Adapter.UserListMouseAdapter;
 
 public class GuiChatSystem extends JFrame {
 
@@ -43,17 +42,7 @@ public class GuiChatSystem extends JFrame {
         users.forEach(user -> userListModel.addElement(user.getPseudo()));
 
         userList = new JList<>(userListModel);
-        userList.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    String selectedUser = userList.getSelectedValue();
-                    // Handle the double-click event on the user here
-                    JOptionPane.showMessageDialog(GuiChatSystem.this,
-                            "BOo :" + selectedUser);
-                }
-            }
-        });
+        userList.addMouseListener(new UserListMouseAdapter(userList, this));
         JScrollPane userScrollPane = new JScrollPane(userList);
         userScrollPane.setPreferredSize(new Dimension(100, 0));
         getContentPane().add(userScrollPane, BorderLayout.EAST);
@@ -77,7 +66,7 @@ public class GuiChatSystem extends JFrame {
     private void sendMessage() {
         String message = userInputField.getText();
         if (!message.isEmpty()) {
-            chatArea.append("You: " + message + "\n");
+            chatArea.append("Me : " + message + "\n");
             userInputField.setText("");
         }
     }
