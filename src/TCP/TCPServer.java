@@ -1,7 +1,6 @@
 package TCP;
 
 import java.io.*;
-import java.io.BufferedWriter;
 import java.net.*;
 
 public class TCPServer {
@@ -23,6 +22,7 @@ public class TCPServer {
         out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
+        this.startReadingThread();
         // read message from client, message is the ip and port of the client
         while (true) {
             String message = in.readLine();
@@ -31,6 +31,20 @@ public class TCPServer {
             }
             
         }
+    }
+
+    public void startReadingThread() {
+        Thread readThread = new Thread(() -> {
+            String receivedMessage;
+            try {
+                while ((receivedMessage = in.readLine()) != null) {
+                    System.out.println("Client: " + receivedMessage);
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        readThread.start();
     }
 
     // send message to one other client with ip and port
