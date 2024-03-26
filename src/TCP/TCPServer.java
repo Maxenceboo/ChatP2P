@@ -35,6 +35,7 @@ public class TCPServer {
 
     public void startReadingThread() {
         Thread readThread = new Thread(() -> {
+            System.out.println("Reading thread started");
             String receivedMessage;
             try {
                 while ((receivedMessage = in.readLine()) != null) {
