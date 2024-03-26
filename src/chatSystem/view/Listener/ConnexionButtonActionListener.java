@@ -2,9 +2,14 @@ package chatSystem.view.Listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.nio.Buffer;
 
+import TCP.TCPClient;
 import chatSystem.model.Personne;
 import chatSystem.view.GuiChatSystem;
 import chatSystem.view.GuiConnexion;
@@ -23,16 +28,14 @@ public class ConnexionButtonActionListener implements ActionListener {
 
         this.guiConnexion.dispose();
 
-        // TODO: Create a list of users from other sources
-
-
-        List<Personne> users = new ArrayList<Personne>();
-        users.add(new Personne("tom", "789670" ));
-        users.add(new Personne("jerry", "789670" ));
-        users.add(new Personne("tintin", "789670" ));
-        users.add(new Personne("milou", "789670" ));
-        users.add(new Personne("dupont", "789670" ));
-        new GuiChatSystem(users);
+        
+        TCPClient client = new TCPClient();
+        client.connectToServer("localhost", 1234);
+        Socket socket = new Socket("localhost", 1234);
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        
+        new GuiChatSystem(new Personne(this.guiConnexion.getTextField().getText(), "" + (int) (Math.random() * 1000)), reader, writer);
     }
 
 }

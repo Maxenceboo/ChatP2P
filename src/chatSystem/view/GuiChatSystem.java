@@ -2,6 +2,8 @@ package chatSystem.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +20,17 @@ public class GuiChatSystem extends JFrame {
     private JButton sendButton;
     private JTextField userInputField;
     private List<GuiPrivateChat> privateChats = new ArrayList<>();
-    private final Controller controller;
+    private Controller controller;
+    private Personne me;
+    private BufferedReader reader;
+    private BufferedWriter writer;
 
-    public GuiChatSystem(List<Personne> users) {
-        this.users = users;
+    public GuiChatSystem(Personne user, BufferedReader reader, BufferedWriter writer) {
+        this.me = user;
+        this.reader = reader;
+        this.writer = writer;
         this.controller = new Controller(this);
+        this.users = this.controller.getUsers();
         createGUI();
     }
 
@@ -116,5 +124,15 @@ public class GuiChatSystem extends JFrame {
     public Controller getController() {
         return controller;
     }
+
+    public Personne getMe() {
+        return me;
+    }
+
+    public void setMe(Personne me) {
+        this.me = me;
+    }
+
+    
 
 }

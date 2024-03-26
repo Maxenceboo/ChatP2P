@@ -3,15 +3,20 @@ package chatSystem.view.Listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PrivateSendMessageButtonActionListener implements ActionListener {
+import chatSystem.view.GuiPrivateChat;
 
+public class PrivateSendMessageButtonActionListener implements ActionListener {
+    private GuiPrivateChat guiPrivateChat;
     
-    public PrivateSendMessageButtonActionListener() {
-        super();
+    public PrivateSendMessageButtonActionListener(GuiPrivateChat guiPrivateChat) {
+        this.guiPrivateChat = guiPrivateChat;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO faire le traitement pour envoyer un message privé
+        guiPrivateChat.getChatArea().append("Me : " + guiPrivateChat.getMessageField().getText() + "\n");
+
+        // TODO send message to other user (controller)
+
     }
 }

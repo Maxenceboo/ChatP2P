@@ -46,7 +46,7 @@ public class GuiPrivateChat extends JFrame {
         bottomPanel.add(messageField, BorderLayout.CENTER);
 
         sendButton = new JButton("Send");
-        sendButton.addActionListener(new PrivateSendMessageButtonActionListener());
+        sendButton.addActionListener(new PrivateSendMessageButtonActionListener(this));
         bottomPanel.add(sendButton, BorderLayout.EAST);
 
         add(bottomPanel, BorderLayout.SOUTH);

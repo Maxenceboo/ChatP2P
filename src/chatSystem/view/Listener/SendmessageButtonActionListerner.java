@@ -3,6 +3,7 @@ package chatSystem.view.Listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import chatSystem.model.Message;
 import chatSystem.view.GuiChatSystem;
 
 public class SendmessageButtonActionListerner implements ActionListener{
@@ -19,7 +20,6 @@ public class SendmessageButtonActionListerner implements ActionListener{
         //get the message from the user input field
         String message = guiChatSystem.getUserInputField().getText();
         //send the message to the controller
-        guiChatSystem.getController().sendMessage(message);
-        
+        guiChatSystem.getController().sendMessage(new Message(message, guiChatSystem.getMe()));        
     } 
 }
