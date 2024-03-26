@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.nio.Buffer;
 
 import TCP.TCPClient;
 import chatSystem.model.Personne;
@@ -24,18 +24,25 @@ public class ConnexionButtonActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String pseudo = this.guiConnexion.getTextField().getText();
-        if (pseudo.isEmpty()) return;
+        if (pseudo.isEmpty())
+            return;
 
         this.guiConnexion.dispose();
 
-        
         TCPClient client = new TCPClient();
-        client.connectToServer("localhost", 1234);
-        Socket socket = new Socket("localhost", 1234);
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        
-        new GuiChatSystem(new Personne(this.guiConnexion.getTextField().getText(), "" + (int) (Math.random() * 1000)), reader, writer);
+        String ip = "192.168.1.220";
+        try {
+            client.connectToServer(ip, 12345);
+            Socket socket = new Socket(ip, 12345);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            new GuiChatSystem(new Personne(this.guiConnexion.getTextField().getText(), ip), reader, writer);
+            socket.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println("Error de merde: " + ex.getMessage());
+        }
     }
 
 }

@@ -16,10 +16,6 @@ public class SendmessageButtonActionListerner implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Send message to other user
-        //get the message from the user input field
-        String message = guiChatSystem.getUserInputField().getText();
-        //send the message to the controller
-        guiChatSystem.getController().sendMessage(new Message(message, guiChatSystem.getMe()));        
+        // TODO Auto-generated method stub
     } 
 }

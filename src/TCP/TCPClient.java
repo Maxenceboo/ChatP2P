@@ -10,9 +10,6 @@ public class TCPClient {
     // private PrintWriter out;
     private BufferedReader in;
 
-    public TCPClient() {
-    }
-
     public void connectToServer(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
         // out = new PrintWriter(socket.getOutputStream(), true);

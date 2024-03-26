@@ -10,15 +10,15 @@ import java.util.List;
 import chatSystem.controller.Controller;
 import chatSystem.model.Personne;
 import chatSystem.view.Adapter.UserListMouseAdapter;
-import chatSystem.view.Listener.SendmessageButtonActionListerner;
+// import chatSystem.view.Listener.SendmessageButtonActionListerner; // Commented out as it's related to sendButton
 
 public class GuiChatSystem extends JFrame {
 
     private JTextArea chatArea;
     private JList<String> userList;
     private List<Personne> users;
-    private JButton sendButton;
-    private JTextField userInputField;
+    // private JButton sendButton; // Removed sendButton
+    // private JTextField userInputField; // Removed userInputField
     private List<GuiPrivateChat> privateChats = new ArrayList<>();
     private Controller controller;
     private Personne me;
@@ -53,11 +53,13 @@ public class GuiChatSystem extends JFrame {
         users.forEach(user -> userListModel.addElement(user.getPseudo()));
 
         userList = new JList<>(userListModel);
-        userList.addMouseListener(new UserListMouseAdapter(userList, this));
+        userList.addMouseListener(new UserListMouseAdapter(this)); // Add a mouse listener to the user list
         JScrollPane userScrollPane = new JScrollPane(userList);
         userScrollPane.setPreferredSize(new Dimension(100, 0));
         getContentPane().add(userScrollPane, BorderLayout.EAST);
 
+        // Commenting out the entire section related to userInputField and sendButton as they are removed
+        /*
         // Message field
         userInputField = new JTextField();
         getContentPane().add(userInputField, BorderLayout.SOUTH);
@@ -69,6 +71,7 @@ public class GuiChatSystem extends JFrame {
         bottomPanel.add(userInputField, BorderLayout.CENTER);
         bottomPanel.add(sendButton, BorderLayout.EAST);
         getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+        */
 
         // Display the JFrame
         setVisible(true);
@@ -95,14 +98,6 @@ public class GuiChatSystem extends JFrame {
 
     public List<Personne> getUsers() {
         return users;
-    }
-
-    public JButton getSendButton() {
-        return sendButton;
-    }
-
-    public JTextField getUserInputField() {
-        return userInputField;
     }
 
     public List<GuiPrivateChat> getPrivateChats() {
@@ -133,6 +128,19 @@ public class GuiChatSystem extends JFrame {
         this.me = me;
     }
 
-    
+    public BufferedReader getReader() {
+        return reader;
+    }
 
+    public BufferedWriter getWriter() {
+        return writer;
+    }
+
+    public void setReader(BufferedReader reader) {
+        this.reader = reader;
+    }
+
+    public void setWriter(BufferedWriter writer) {
+        this.writer = writer;
+    }
 }

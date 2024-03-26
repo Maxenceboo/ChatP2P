@@ -13,8 +13,8 @@ public class UserListMouseAdapter extends MouseAdapter {
     private JList<String> userList;
     private GuiChatSystem guiChatSystem;
 
-    public UserListMouseAdapter(JList<String> userList, GuiChatSystem guiChatSystem) {
-        this.userList = userList;
+    public UserListMouseAdapter(GuiChatSystem guiChatSystem) {
+        this.userList = guiChatSystem.getUserList();
         this.guiChatSystem = guiChatSystem;
     }
 

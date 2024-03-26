@@ -14,28 +14,29 @@ public class GuiPrivateChat extends JFrame {
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
-    private String userName;
-    private MessagePrivate message;
+    private Personne me;
+    private Personne otherUser;
 
     public GuiPrivateChat(MessagePrivate message) {
-        this.message = message;
-        this.userName = message.getSender().getPseudo();
+        this.me = message.getReceiver();
+        this.otherUser = message.getSender();
+        this.chatArea.append(this.otherUser.getPseudo() + " : " + message.getMessage() + "\n");
         createGUI();
     }
 
     public GuiPrivateChat(Personne personne) {
-        this.userName = personne.getPseudo();
+        this.otherUser = personne;
         createGUI();
     }
 
     private void createGUI() {
         // Setting up the JFrame
-        setTitle("ChatPrivate " + userName);
+        setTitle("ChatPrivate " + otherUser.getIp());
         setSize(500, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Chat area
-        chatArea = new JTextArea("Chat with " + userName + ":\n");
+        chatArea = new JTextArea("Chat with " + otherUser.getPseudo() + ":\n");
         chatArea.setEditable(false);
         JScrollPane chatScrollPane = new JScrollPane(chatArea);
         add(chatScrollPane, BorderLayout.CENTER);
@@ -68,19 +69,11 @@ public class GuiPrivateChat extends JFrame {
     }
 
     public String getUserName() {
-        return userName;
-    }
-
-    public MessagePrivate getMessage() {
-        return message;
-    }
-
-    public void setMessage(MessagePrivate message) {
-        this.message = message;
+        return otherUser.getPseudo();
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.otherUser.setPseudo(userName);
     }
 
     public void setChatArea(JTextArea chatArea) {
@@ -100,13 +93,12 @@ public class GuiPrivateChat extends JFrame {
     }
 
     public void receiveMessage(String message) {
-        this.chatArea.append(this.userName + " : " + message + "\n");
+        this.chatArea.append(this.otherUser.getPseudo() + " : " + message + "\n");
     }
 
     public void close() {
         this.dispose();
     }
-
 
 
 }
