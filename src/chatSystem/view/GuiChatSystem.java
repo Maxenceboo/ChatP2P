@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.PrintWriter;
 
 import chatSystem.controller.Controller;
 import chatSystem.model.Personne;
@@ -26,9 +25,9 @@ public class GuiChatSystem extends JFrame {
     private Controller controller;
     private Personne me;
     private BufferedReader reader;
-    private PrintWriter writer;
+    private BufferedWriter writer;
 
-    public GuiChatSystem(Personne user, BufferedReader reader, PrintWriter writer) {
+    public GuiChatSystem(Personne user, BufferedReader reader, BufferedWriter writer) {
         this.me = user;
         this.reader = reader;
         this.writer = writer;
@@ -139,7 +138,7 @@ public class GuiChatSystem extends JFrame {
         return reader;
     }
 
-    public PrintWriter getWriter() {
+    public BufferedWriter getWriter() {
         return writer;
     }
 
@@ -147,7 +146,7 @@ public class GuiChatSystem extends JFrame {
         this.reader = reader;
     }
 
-    public void setWriter(PrintWriter writer) {
+    public void setWriter(BufferedWriter writer) {
         this.writer = writer;
     }
 

@@ -6,6 +6,7 @@ import chatSystem.view.GuiChatSystem;
 import chatSystem.view.GuiPrivateChat;
 import chatSystem.model.Personne;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,12 @@ public class Controller {
     public void sendBroadcastMessage(String message) {
         // send to other user
         // this.guiChatSystem.getChatArea().append("Me : " + message + "\n");
-        this.guiChatSystem.getWriter().println(message);
+        try {
+            this.guiChatSystem.getWriter().write(message);
+        } catch (IOException e) {
+            // Handle the IOException here
+            e.printStackTrace();
+        }
     }
 
 }

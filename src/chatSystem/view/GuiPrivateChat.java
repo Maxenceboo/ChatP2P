@@ -1,7 +1,5 @@
 package chatSystem.view;
 
-import javax.swing.JFrame;
-
 import chatSystem.model.MessagePrivate;
 import chatSystem.model.Personne;
 import chatSystem.view.Listener.PrivateSendMessageButtonActionListener;
@@ -9,7 +7,6 @@ import chatSystem.view.Listener.PrivateSendMessageButtonActionListener;
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedWriter;
-import java.io.PrintWriter;
 
 public class GuiPrivateChat extends JFrame {
 
@@ -18,7 +15,7 @@ public class GuiPrivateChat extends JFrame {
     private JButton sendButton;
     private Personne me;
     private Personne otherUser;
-    private PrintWriter out;
+    private BufferedWriter out;
 
     public GuiPrivateChat(MessagePrivate message, GuiChatSystem guiChatSystem) {
         this.me = message.getReceiver();

@@ -7,7 +7,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import chatSystem.model.Personne;
@@ -32,7 +31,7 @@ public class ConnexionButtonActionListener implements ActionListener {
         String ip = "192.168.1.241";
         try {
             Socket socket = new Socket(ip, 12345);
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 

@@ -1,12 +1,13 @@
 package TCP;
 
 import java.io.*;
+import java.io.BufferedWriter;
 import java.net.*;
 
 public class TCPServer {
     private ServerSocket serverSocket;
     private Socket clientSocket;
-    private PrintWriter out;
+    private BufferedWriter out;
     private BufferedReader in;
 
     public TCPServer(int port) throws IOException {
@@ -19,7 +20,7 @@ public class TCPServer {
 
         clientSocket = serverSocket.accept();
         System.out.println("Client connected.");
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
+        out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
         String inputLine = in.readLine();
@@ -32,23 +33,12 @@ public class TCPServer {
     // send message to one other client with ip and port
     public void sendMessage(String ip, int port, String message) throws IOException {
         Socket socket = new Socket(ip, port);
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(message);
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        out.write(message);
         out.close();
         socket.close();
     }
-
-    // send message to all clients
-    public void broadcastMessage(String message) {
-        // send message hello and ip and port to all clients
-        out.println(clientSocket.getInetAddress().getHostAddress() + ", " + message); // its adress of the client who sent the message to the server
-    }
-
-
-    public void sendHello() {
-        out.println("Hello");
-    }
-
+ 
     public void stop() throws IOException {
         in.close();
         out.close();
