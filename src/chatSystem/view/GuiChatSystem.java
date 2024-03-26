@@ -75,7 +75,7 @@ public class GuiChatSystem extends JFrame {
         getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         */
 
-        this.controller.sendBroadcastMessage("Hello, I'm " + me.getPseudo());
+        this.controller.sendBroadcastMessage("Hello, I'm " + me.getPseudo()+ "\n");
 
         // Display the JFrame
         setVisible(true);

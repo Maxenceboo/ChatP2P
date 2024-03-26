@@ -23,9 +23,13 @@ public class TCPServer {
         out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-        String message = in.readLine();
-        System.out.println("Message received: " + message);
-        
+        // read message from client, message is the ip and port of the client
+        while (true) {
+            String message = in.readLine();
+            System.out.println("Message received: " + message);
+            sendMessage(" ", 12345, "Hello from server");
+            
+        }
     }
 
     // send message to one other client with ip and port
