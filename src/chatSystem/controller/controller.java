@@ -5,13 +5,15 @@ import chatSystem.model.MessagePrivate;
 import chatSystem.view.GuiChatSystem;
 import chatSystem.view.GuiPrivateChat;
 import chatSystem.model.Personne;
+import chatSystem.utils.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
 
-// importer ce fichier : /src/TCP/TCPHandler.java
 
 public class Controller {
     private GuiChatSystem guiChatSystem;
@@ -20,41 +22,74 @@ public class Controller {
         this.guiChatSystem = guiChatSystem;
     }
 
-    public void messageReceived(Message message) {
-        if (!this.guiChatSystem.getUsers().contains(message.getSender()))
-            return;
-        this.guiChatSystem.getChatArea().append(message.toString() + "\n");
+    public void threadMessageReceived() {
+        BufferedReader in = this.guiChatSystem.getReader();
+        // thread message received
+        @SuppressWarnings("unlikely-arg-type")
+        Thread readThread = new Thread(() -> {
+            String receivedMessage;
+            Message messagePrivate;
+            GuiPrivateChat guiPrivateChat;
+            Personne hello;
+            try {
+                while ((receivedMessage = in.readLine()) != null) {
+                    if ((messagePrivate = utils.parseMessage(receivedMessage)) != null) {
+                        //check if guiPrivateChat exist
+                        if (!this.guiChatSystem.getPrivateChats().contains(messagePrivate.getSender())) {
+                            // new GuiPrivateChat(selectedUser)
+                            guiPrivateChat = new GuiPrivateChat(messagePrivate.getSender(), this.guiChatSystem);
+                            guiPrivateChat.addMessage(messagePrivate.toString() + "\n");
+                            this.guiChatSystem.addPrivateChats(guiPrivateChat);
+                        }else {
+                            // get the GuiPrivateChat
+                            guiPrivateChat = this.guiChatSystem.getPrivateChats().get(this.guiChatSystem.getPrivateChats().indexOf(messagePrivate.getSender()));
+                            guiPrivateChat.getChatArea().append(messagePrivate.getSender().getPseudo() + " : " + messagePrivate.getMessage() + "\n");
+                        }
+                        
+                    }
+
+                }
+                if ((hello = utils.parseHello(receivedMessage)) != null) {
+                    // add to list
+                    this.guiChatSystem.addUsers(hello);
+                    this.guiChatSystem.addUsersJList(hello);
+
+                    // send hello back
+                    this.guiChatSystem.getWriter().write(utils.createHello(this.guiChatSystem.getMe()));
+                    this.guiChatSystem.getWriter().newLine();
+                    this.guiChatSystem.getWriter().flush();
+
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        readThread.start();
     }
 
-    @SuppressWarnings("unlikely-arg-type")
-    public void messageReceived(MessagePrivate message) {
-        if (!this.guiChatSystem.getUsers().contains(message.getSender()))
-            return;
 
-        // check if private list with sender exists
-        if (!this.guiChatSystem.getPrivateChats().contains(message.getSender())) {
-            this.guiChatSystem.addPrivateChats(new GuiPrivateChat(message, this.guiChatSystem));
-        }
-        GuiPrivateChat privateChat = this.guiChatSystem.getPrivateChats()
-                .get(this.guiChatSystem.getPrivateChats().indexOf(message.getSender()));
-
-        privateChat.getChatArea().append(message.toString() + "\n");
-    }
-
-    public List<Personne> getUsers() {
-        // tcp handler
-        // TCPHandler tcpHandler = new TCPHandler();
-        // List<Personne> users = tcpHandler.getUsers();
-        List<Personne> users = new ArrayList<Personne>();
-        users.add(new Personne("Teo", "1.1.1.1"));
-        return users;
-    }
 
     public void sendBroadcastMessage(String message) {
         // send to other user
         // this.guiChatSystem.getChatArea().append("Me : " + message + "\n");
         try {
+            // this.guiChatSystem.getWriter() its a BufferedWriter
             this.guiChatSystem.getWriter().write(message);
+            this.guiChatSystem.getWriter().newLine();
+            this.guiChatSystem.getWriter().flush();
+
+        } catch (IOException e) {
+            // Handle the IOException here
+            e.printStackTrace();
+        }
+    }
+
+    public void sendHello() {
+        // send hello message
+        try {
+            this.guiChatSystem.getWriter().write(utils.createHello(this.guiChatSystem.getMe()));
+            this.guiChatSystem.getWriter().newLine();
+            this.guiChatSystem.getWriter().flush();
         } catch (IOException e) {
             // Handle the IOException here
             e.printStackTrace();

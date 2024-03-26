@@ -32,7 +32,8 @@ public class GuiChatSystem extends JFrame {
         this.reader = reader;
         this.writer = writer;
         this.controller = new Controller(this);
-        this.users = this.controller.getUsers();
+        this.users = new ArrayList<>();
+        this.users.add(user);
         createGUI();
     }
 
@@ -75,8 +76,7 @@ public class GuiChatSystem extends JFrame {
         getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         */
 
-        this.controller.sendBroadcastMessage("Hello, I'm " + me.getPseudo()+ "\n");
-
+        this.controller.sendHello();
         // Display the JFrame
         setVisible(true);
 
@@ -100,6 +100,11 @@ public class GuiChatSystem extends JFrame {
 
     public JList<String> getUserList() {
         return userList;
+    }
+
+    public void addUsersJList(Personne user) {
+        DefaultListModel<String> userListModel = (DefaultListModel<String>) userList.getModel();
+        userListModel.addElement(user.getPseudo());
     }
 
     public List<Personne> getUsers() {
@@ -157,6 +162,10 @@ public class GuiChatSystem extends JFrame {
 
     public void setUsers(List<Personne> users) {
         this.users = users;
+    }
+
+    public void addUsers (Personne user){
+        this.users.add(user);
     }
 
     public void setChatArea(JTextArea chatArea) {

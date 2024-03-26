@@ -3,9 +3,8 @@ package chatSystem.model;
 public class MessagePrivate extends Message {
     private Personne receiver;
 
-    public MessagePrivate(String message, Personne sender, Personne receiver) {
+    public MessagePrivate(String message, Personne sender) {
         super(message, sender);
-        this.receiver = receiver;
     }
 
     public Personne getReceiver() {

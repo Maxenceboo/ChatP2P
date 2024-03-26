@@ -16,6 +16,7 @@ public class GuiPrivateChat extends JFrame {
     private Personne me;
     private Personne otherUser;
     private BufferedWriter out;
+    private GuiChatSystem guichatsystem;
 
     public GuiPrivateChat(MessagePrivate message, GuiChatSystem guiChatSystem) {
         this.me = message.getReceiver();
@@ -27,6 +28,7 @@ public class GuiPrivateChat extends JFrame {
     public GuiPrivateChat(Personne personne, GuiChatSystem guiChatSystem) {
         this.otherUser = personne;
         this.me = guiChatSystem.getMe();
+        this.guichatsystem = guiChatSystem;
         createGUI();
     }
 
@@ -79,6 +81,10 @@ public class GuiPrivateChat extends JFrame {
 
     public void setChatArea(JTextArea chatArea) {
         this.chatArea = chatArea;
+    }
+
+    public void addMessage(String message) {
+        this.chatArea.append(message + "\n");
     }
 
     public void setMessageField(JTextField messageField) {

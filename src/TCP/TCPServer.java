@@ -40,6 +40,11 @@ public class TCPServer {
             try {
                 while ((receivedMessage = in.readLine()) != null) {
                     System.out.println("Client: " + receivedMessage);
+                    // send message to the client
+                    // out.write("Message received: " + receivedMessage);
+                    // out.newLine();
+                    // out.flush();
+
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -47,6 +52,7 @@ public class TCPServer {
         });
         readThread.start();
     }
+
 
     // send message to one other client with ip and port
     public void sendMessage(String ip, int port, String message) throws IOException {
@@ -56,6 +62,28 @@ public class TCPServer {
         out.close();
         socket.close();
     }
+
+    public void sendMessage(String message) throws IOException {
+        out.write(message);
+        out.newLine();
+        out.flush();
+    }
+
+    // // send message to client with ip and port and get response from client with ip and port 
+    // public String sendMessageAndReceiveResponse(String ip, int port, String message) throws IOException {
+    //     Socket socket = new Socket(ip, port);
+    //     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+    //     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    //     out.write(message);
+    //     out.newLine();
+    //     out.flush();
+    //     String response = in.readLine();
+    //     out.close();
+    //     in.close();
+    //     socket.close();
+    //     return response;
+    // }
+
  
     public void stop() throws IOException {
         in.close();

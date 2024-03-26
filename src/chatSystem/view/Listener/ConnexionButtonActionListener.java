@@ -29,14 +29,13 @@ public class ConnexionButtonActionListener implements ActionListener {
         this.guiConnexion.dispose();
 
         String ip = "192.168.1.241";
-        try {
-            Socket socket = new Socket(ip, 12345);
+        try (Socket socket = new Socket(ip, 12345)) {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-
             new GuiChatSystem(new Personne(this.guiConnexion.getTextField().getText(), ip), reader, writer);
-            socket.close();
+            // socket.close();
+
         } catch (IOException ex) {
             ex.printStackTrace();
             System.out.println("Error de merde: " + ex.getMessage());
