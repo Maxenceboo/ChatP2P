@@ -26,8 +26,9 @@ public class TCPServer {
         // read message from client, message is the ip and port of the client
         while (true) {
             String message = in.readLine();
-            System.out.println("Message received: " + message);
-            sendMessage(" ", 12345, "Hello from server");
+            if (message != null) {
+                System.out.println("Message received: " + message);
+            }
             
         }
     }
