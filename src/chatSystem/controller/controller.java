@@ -8,7 +8,11 @@ import chatSystem.model.Personne;
 import chatSystem.utils.utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +53,10 @@ public class Controller {
                     }
 
                 }
-                if ((hello = utils.parseHello(receivedMessage)) != null) {
+                if ((hello = utils.parseHello(receivedMessage,guiChatSystem)) != null) {
                     // add to list
                     this.guiChatSystem.addUsers(hello);
                     this.guiChatSystem.addUsersJList(hello);
-
-                    // send hello back
-                    this.guiChatSystem.getWriter().write(utils.createHello(this.guiChatSystem.getMe()));
-                    this.guiChatSystem.getWriter().newLine();
-                    this.guiChatSystem.getWriter().flush();
 
                 }
             } catch (IOException ex) {
@@ -94,6 +93,25 @@ public class Controller {
             // Handle the IOException here
             e.printStackTrace();
         }
+    }
+
+    public void sendMessage(Message message) {
+        // send message unicast to personne
+        try (Socket socket = new Socket(message.getSender().getIp(), 12345)) {
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            
+            writer.write(message.toString());
+            writer.newLine();
+            writer.flush();
+            // socket.close();
+        } catch (IOException e) {
+            // Handle the IOException here
+            e.printStackTrace();
+        }
+        
+        
+        
     }
 
 }
