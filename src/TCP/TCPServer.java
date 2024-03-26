@@ -40,11 +40,6 @@ public class TCPServer {
             try {
                 while ((receivedMessage = in.readLine()) != null) {
                     System.out.println("Client: " + receivedMessage);
-                    // send message to the client
-                    // out.write("Message received: " + receivedMessage);
-                    // out.newLine();
-                    // out.flush();
-
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
