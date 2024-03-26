@@ -1,11 +1,14 @@
 package chatSystem.view;
 
 import javax.swing.*;
+
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.PrintWriter;
 
 import chatSystem.controller.Controller;
 import chatSystem.model.Personne;
@@ -23,9 +26,9 @@ public class GuiChatSystem extends JFrame {
     private Controller controller;
     private Personne me;
     private BufferedReader reader;
-    private BufferedWriter writer;
+    private PrintWriter writer;
 
-    public GuiChatSystem(Personne user, BufferedReader reader, BufferedWriter writer) {
+    public GuiChatSystem(Personne user, BufferedReader reader, PrintWriter writer) {
         this.me = user;
         this.reader = reader;
         this.writer = writer;
@@ -73,8 +76,12 @@ public class GuiChatSystem extends JFrame {
         getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         */
 
+        this.controller.sendBroadcastMessage("Hello, I'm " + me.getPseudo());
+
         // Display the JFrame
         setVisible(true);
+
+        //  send broadcast message
     }
 
     public void addUser(Personne user) {
@@ -132,7 +139,7 @@ public class GuiChatSystem extends JFrame {
         return reader;
     }
 
-    public BufferedWriter getWriter() {
+    public PrintWriter getWriter() {
         return writer;
     }
 
@@ -140,7 +147,27 @@ public class GuiChatSystem extends JFrame {
         this.reader = reader;
     }
 
-    public void setWriter(BufferedWriter writer) {
+    public void setWriter(PrintWriter writer) {
         this.writer = writer;
     }
+
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
+    public void setUsers(List<Personne> users) {
+        this.users = users;
+    }
+
+    public void setChatArea(JTextArea chatArea) {
+        this.chatArea = chatArea;
+    }
+
+    public void setUserList(JList<String> userList) {
+        this.userList = userList;
+    }
+
+
+
 }

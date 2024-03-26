@@ -22,9 +22,10 @@ public class TCPServer {
         out = new PrintWriter(clientSocket.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-        String inputLine;
-        while ((inputLine = in.readLine()) != null) {
-            System.out.println("Client: " + inputLine);
+        String inputLine = in.readLine();
+        System.out.println("Client: " + inputLine);
+        while ((inputLine) != null) {
+            // System.out.println("Client: " + inputLine);
         }
     }
 

@@ -8,6 +8,8 @@ import chatSystem.view.Listener.PrivateSendMessageButtonActionListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
 
 public class GuiPrivateChat extends JFrame {
 
@@ -16,16 +18,18 @@ public class GuiPrivateChat extends JFrame {
     private JButton sendButton;
     private Personne me;
     private Personne otherUser;
+    private PrintWriter out;
 
-    public GuiPrivateChat(MessagePrivate message) {
+    public GuiPrivateChat(MessagePrivate message, GuiChatSystem guiChatSystem) {
         this.me = message.getReceiver();
         this.otherUser = message.getSender();
         this.chatArea.append(this.otherUser.getPseudo() + " : " + message.getMessage() + "\n");
         createGUI();
     }
 
-    public GuiPrivateChat(Personne personne) {
+    public GuiPrivateChat(Personne personne, GuiChatSystem guiChatSystem) {
         this.otherUser = personne;
+        this.me = guiChatSystem.getMe();
         createGUI();
     }
 

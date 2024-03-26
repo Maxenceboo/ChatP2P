@@ -32,7 +32,7 @@ public class Controller {
 
         // check if private list with sender exists
         if (!this.guiChatSystem.getPrivateChats().contains(message.getSender())) {
-            this.guiChatSystem.addPrivateChats(new GuiPrivateChat(message));
+            this.guiChatSystem.addPrivateChats(new GuiPrivateChat(message, this.guiChatSystem));
         }
         GuiPrivateChat privateChat = this.guiChatSystem.getPrivateChats()
                 .get(this.guiChatSystem.getPrivateChats().indexOf(message.getSender()));
@@ -49,12 +49,10 @@ public class Controller {
         return users;
     }
 
-    public void sendMessage(Message message) {
+    public void sendBroadcastMessage(String message) {
         // send to other user
-        this.guiChatSystem.getChatArea().append("Me : " + message + "\n");
-        // tcp handler
-        // TCPHandler tcpHandler = new TCPHandler();
-        // tcpHandler.sendMessage(new Message(this.guiChatSystem.getMe(), message));
+        // this.guiChatSystem.getChatArea().append("Me : " + message + "\n");
+        this.guiChatSystem.getWriter().println(message);
     }
 
 }

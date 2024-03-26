@@ -26,7 +26,7 @@ public class UserListMouseAdapter extends MouseAdapter {
             // check if private list with sender exists
             if (!this.guiChatSystem.getPrivateChats().contains(selectedUser)) {
                 // new GuiPrivateChat(selectedUser)
-                this.guiChatSystem.addPrivateChats(new GuiPrivateChat(selectedUser));
+                this.guiChatSystem.addPrivateChats(new GuiPrivateChat(selectedUser,guiChatSystem));
             }
         }
     }

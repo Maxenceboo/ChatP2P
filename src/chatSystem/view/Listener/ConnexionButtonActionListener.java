@@ -7,9 +7,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 
-import TCP.TCPClient;
 import chatSystem.model.Personne;
 import chatSystem.view.GuiChatSystem;
 import chatSystem.view.GuiConnexion;
@@ -29,13 +29,12 @@ public class ConnexionButtonActionListener implements ActionListener {
 
         this.guiConnexion.dispose();
 
-        TCPClient client = new TCPClient();
-        String ip = "192.168.1.220";
+        String ip = "192.168.1.241";
         try {
-            client.connectToServer(ip, 12345);
             Socket socket = new Socket(ip, 12345);
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
 
             new GuiChatSystem(new Personne(this.guiConnexion.getTextField().getText(), ip), reader, writer);
             socket.close();
