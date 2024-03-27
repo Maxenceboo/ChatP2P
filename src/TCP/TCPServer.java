@@ -22,12 +22,15 @@ public class TCPServer {
         out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-        this.startReadingThread();
+        // this.startReadingThread();
         // read message from client, message is the ip and port of the client
         while (true) {
             String message = in.readLine();
             if (message != null) {
-                System.out.println("Message received: " + message);
+                System.out.println("Message received11111: " + message);
+                out.write("Message received: " + message);
+                out.newLine();
+                out.flush();
             }
             
         }
@@ -41,9 +44,9 @@ public class TCPServer {
                 while ((receivedMessage = in.readLine()) != null) {
                     System.out.println("Client: " + receivedMessage);
                     // send message to the client
-                    // out.write("Message received: " + receivedMessage);
-                    // out.newLine();
-                    // out.flush();
+                    out.write("Message received: " + receivedMessage);
+                    out.newLine();
+                    out.flush();
 
                 }
             } catch (IOException ex) {

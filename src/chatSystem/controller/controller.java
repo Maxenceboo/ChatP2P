@@ -37,6 +37,7 @@ public class Controller {
             Personne hello;
             try {
                 while ((receivedMessage = in.readLine()) != null) {
+                    System.out.println("Client: " + receivedMessage);
                     if ((messagePrivate = utils.parseMessage(receivedMessage)) != null) {
                         //check if guiPrivateChat exist
                         if (!this.guiChatSystem.getPrivateChats().contains(messagePrivate.getSender())) {
