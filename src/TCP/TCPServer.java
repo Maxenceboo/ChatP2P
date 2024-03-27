@@ -43,11 +43,14 @@ public class TCPServer {
             try {
                 while ((receivedMessage = in.readLine()) != null) {
                     System.out.println("Client: " + receivedMessage);
+<<<<<<< HEAD
                     // send message to the client
                     out.write("Message received: " + receivedMessage);
                     out.newLine();
                     out.flush();
 
+=======
+>>>>>>> 1354b5a56c4de91ec2dad962df88f4541cfb3b70
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
