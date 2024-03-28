@@ -97,6 +97,7 @@ public class Controller {
         // send message unicast to personne
         try (Socket socket = new Socket(message.getSender().getIp(), 12345)) {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            @SuppressWarnings("unused")
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             
             writer.write(message.toString());
