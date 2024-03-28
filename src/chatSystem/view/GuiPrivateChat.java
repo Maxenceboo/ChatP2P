@@ -13,13 +13,15 @@ public class GuiPrivateChat extends JFrame {
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
-    private Personne me;
     private Personne otherUser;
+    @SuppressWarnings("unused")
     private BufferedWriter out;
+    @SuppressWarnings("unused")
     private GuiChatSystem guichatsystem;
 
+    
     public GuiPrivateChat(MessagePrivate message, GuiChatSystem guiChatSystem) {
-        this.me = message.getReceiver();
+        message.getReceiver();
         this.otherUser = message.getSender();
         this.chatArea.append(this.otherUser.getPseudo() + " : " + message.getMessage() + "\n");
         createGUI();
@@ -27,7 +29,7 @@ public class GuiPrivateChat extends JFrame {
 
     public GuiPrivateChat(Personne personne, GuiChatSystem guiChatSystem) {
         this.otherUser = personne;
-        this.me = guiChatSystem.getMe();
+        guiChatSystem.getMe();
         this.guichatsystem = guiChatSystem;
         createGUI();
     }

@@ -1,7 +1,6 @@
 package chatSystem.controller;
 
 import chatSystem.model.Message;
-import chatSystem.model.MessagePrivate;
 import chatSystem.view.GuiChatSystem;
 import chatSystem.view.GuiPrivateChat;
 import chatSystem.model.Personne;
@@ -13,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.nio.Buffer;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 
